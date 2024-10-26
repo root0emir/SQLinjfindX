@@ -17,20 +17,13 @@ error_patterns = [
     "no such table", "unterminated quoted string"
 ]
 
-
 def show_banner(stdscr):
     banner = r"""
-
-
           __   _   _            __             
 / _| / \ | |  ()  _ ()/ _|()  _  ||   
 \_ \( o )| |_ |||/ \||| ] |||/ \/o|\V7
 |__/ \_,7|___|L|L_n|||L|  L|L_n|\_|/n\
                     //                
-
-                                                         
-                                                                                                                                                      
-                                                                                                                                                
     SQLinjFindX by root0emir
     """
     
@@ -43,8 +36,6 @@ def show_banner(stdscr):
     stdscr.refresh()
     time.sleep(2)  # Adjust to delay the display before the menu shows
 
-
-
 class SQLiTool:
     def __init__(self, stdscr):
         self.stdscr = stdscr
@@ -54,13 +45,7 @@ class SQLiTool:
         self.selected = 0
         self.run_tool()
 
-    # Other methods...
-
-    def show_result(self, result):
-        # Method content...
-
-
-      def print_menu(self):
+    def print_menu(self):
         self.stdscr.clear()
         height, width = self.stdscr.getmaxyx()
         title = "SQLinjfindX"
@@ -102,19 +87,18 @@ class SQLiTool:
                         self.show_result(self.time_based_sqli())
             self.stdscr.refresh()
 
-def show_result(self, result):
-    self.stdscr.clear()
-    self.stdscr.addstr(2, 2, "Results:", curses.color_pair(1))
-    y = 4
-    for line in result:
-        self.stdscr.addstr(y, 2, line)
-        y += 1
+    def show_result(self, result):
+        self.stdscr.clear()
+        self.stdscr.addstr(2, 2, "Results:", curses.color_pair(1))
+        y = 4
+        for line in result:
+            self.stdscr.addstr(y, 2, line)
+            y += 1
+            self.stdscr.refresh()
+            time.sleep(0.1)
+        self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")
         self.stdscr.refresh()
-        time.sleep(0.1)
-    self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")
-    self.stdscr.refresh()
-    self.stdscr.getch()
-
+        self.stdscr.getch()
 
     def error_based_sqli(self):
         result = ["[Error-Based SQL Injection Test]"]
