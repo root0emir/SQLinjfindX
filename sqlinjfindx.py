@@ -44,6 +44,7 @@ def show_banner(stdscr):
     time.sleep(2)  # Adjust to delay the display before the menu shows
 
 
+
 class SQLiTool:
     def __init__(self, stdscr):
         self.stdscr = stdscr
@@ -53,7 +54,13 @@ class SQLiTool:
         self.selected = 0
         self.run_tool()
 
-    def print_menu(self):
+    # Other methods...
+
+    def show_result(self, result):
+        # Method content...
+
+
+      def print_menu(self):
         self.stdscr.clear()
         height, width = self.stdscr.getmaxyx()
         title = "SQLinjfindX"
@@ -97,17 +104,16 @@ class SQLiTool:
 
 def show_result(self, result):
     self.stdscr.clear()
-    self.stdscr.addstr(2, 2, "Results:", curses.color_pair(1))  
+    self.stdscr.addstr(2, 2, "Results:", curses.color_pair(1))
     y = 4
     for line in result:
         self.stdscr.addstr(y, 2, line)
         y += 1
-        self.stdscr.refresh()  
-        time.sleep(0.1)  
-
-    self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")  
-    self.stdscr.refresh()  
-    self.stdscr.getch()  
+        self.stdscr.refresh()
+        time.sleep(0.1)
+    self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")
+    self.stdscr.refresh()
+    self.stdscr.getch()
 
 
     def error_based_sqli(self):
