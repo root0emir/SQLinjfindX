@@ -19,11 +19,14 @@ error_patterns = [
 
 def show_banner(stdscr):
     banner = r"""
+
+
           __   _   _            __             
 / _| / \ | |  ()  _ ()/ _|()  _  ||   
 \_ \( o )| |_ |||/ \||| ] |||/ \/o|\V7
 |__/ \_,7|___|L|L_n|||L|  L|L_n|\_|/n\
-                    //                
+                    //                 
+
     SQLinjFindX by root0emir
     """
     
@@ -98,7 +101,7 @@ class SQLiTool:
             time.sleep(0.1)
         self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")
         self.stdscr.refresh()
-        self.stdscr.getch()
+        self.stdscr.getch()  # Wait for user input to return to the menu
 
     def error_based_sqli(self):
         result = ["[Error-Based SQL Injection Test]"]
