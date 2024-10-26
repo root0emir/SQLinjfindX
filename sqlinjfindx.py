@@ -88,7 +88,6 @@ class SQLiTool:
                         self.show_result(self.blind_sqli())
                     elif self.menu_options[self.selected] == "Time-Based SQLi":
                         self.show_result(self.time_based_sqli())
-            self.stdscr.refresh()
 
     def show_result(self, result):
         self.stdscr.clear()
@@ -99,9 +98,12 @@ class SQLiTool:
             y += 1
             self.stdscr.refresh()
             time.sleep(0.1)
+
         self.stdscr.addstr(y + 1, 2, "Press any key to return to the menu.")
         self.stdscr.refresh()
         self.stdscr.getch()  # Wait for user input to return to the menu
+
+        self.print_menu()  # Return to the menu after showing results
 
     def error_based_sqli(self):
         result = ["[Error-Based SQL Injection Test]"]
