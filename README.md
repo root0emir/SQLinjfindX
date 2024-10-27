@@ -7,6 +7,7 @@ How To Use
 
 Clone the Repository:
 git clone https://github.com/your-repo/SQLinjFindX.git
+
 cd SQLinjFindX
 
 Install Required Libraries:
