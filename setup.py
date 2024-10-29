@@ -7,7 +7,7 @@ setup(
     description="SQL Injection tool with various testing techniques.",
     long_description=open('README.md').read(), 
     long_description_content_type="text/markdown",
-    url="http://github.com/root0emir/SQLinjfindX",  # Replace with your project's URL
+    url="http://github.com/root0emir/SQLinjfindX",  
     packages=find_packages(),
     install_requires=[
         'requests',
