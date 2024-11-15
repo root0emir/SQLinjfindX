@@ -6,12 +6,12 @@ You will be able to perform basic SQL injection scans quickly due to its user-fr
 How To Use 
 
 Clone the Repository:
-git clone https://github.com/your-repo/SQLinjFindX.git
+git clone https://github.com/root0emir/SQLinjfindX.git
 
 cd SQLinjFindX
 
 Install Required Libraries:
-pip install requests
+pip install requests 
 
 Running the Tool:
 python sqlinjfindx.py
