@@ -1,5 +1,5 @@
 # SQLinjfindX
-sqlinjfindx is a Python-based tool designed to identify SQL injection vulnerabilities in web applications.
+SQLinjfindX is a Python-based tool designed to identify SQL injection vulnerabilities in web applications.
 
 You will be able to perform basic SQL injection scans quickly due to its user-friendly and simple interface.
 
@@ -9,9 +9,6 @@ Clone the Repository:
 git clone https://github.com/root0emir/SQLinjfindX.git
 
 cd SQLinjFindX
-
-Install Required Libraries:
-pip install requests 
 
 Running the Tool:
 python sqlinjfindx.py
